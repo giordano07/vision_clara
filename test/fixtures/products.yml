@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: Lentes de Sol Niños
+  descripcion: Lentes de sol para niños con protección UV
+  precio: 99.99
+  activo: true
+  categoria: ninos
+  subcategoria: lentes de sol
+
+two:
+  nombre: Lentes Recetados Niños
+  descripcion: Lentes recetados para niños
+  precio: 149.99
+  activo: true
+  categoria: ninos
+  subcategoria: lentes recetados
+
+three:
+  nombre: Lentes de Sol Damas
+  descripcion: Lentes de sol elegantes para damas
+  precio: 199.99
+  activo: true
+  categoria: damas
+  subcategoria: lentes de sol

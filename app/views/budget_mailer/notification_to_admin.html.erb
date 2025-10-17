@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    .header {
+      background-color: #2b3760;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 5px 5px 0 0;
+    }
+    .content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 0 0 5px 5px;
+    }
+    .field {
+      margin-bottom: 15px;
+    }
+    .field-label {
+      font-weight: bold;
+      color: #2b3760;
+    }
+    .field-value {
+      margin-top: 5px;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Nueva Solicitud de Presupuesto</h1>
+    </div>
+    <div class="content">
+      <p>Se ha recibido una nueva solicitud de presupuesto:</p>
+
+      <div class="field">
+        <div class="field-label">Nombre:</div>
+        <div class="field-value"><%= @budget.nombre %></div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Teléfono:</div>
+        <div class="field-value"><%= @budget.telefono %></div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">DNI:</div>
+        <div class="field-value"><%= @budget.dni %></div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Email:</div>
+        <div class="field-value"><%= @budget.email %></div>
+      </div>
+
+      <% if @budget.tipo_lentes.present? %>
+        <div class="field">
+          <div class="field-label">Tipo de lentes:</div>
+          <div class="field-value"><%= @budget.tipo_lentes %></div>
+        </div>
+      <% end %>
+
+      <% if @budget.motivo.present? %>
+        <div class="field">
+          <div class="field-label">Motivo de consulta:</div>
+          <div class="field-value"><%= simple_format(@budget.motivo) %></div>
+        </div>
+      <% end %>
+
+      <% if @budget.preferencia_contacto.present? %>
+        <div class="field">
+          <div class="field-label">Preferencia de contacto:</div>
+          <div class="field-value"><%= @budget.preferencia_contacto %></div>
+        </div>
+      <% end %>
+
+      <% if @budget.horario_preferido.present? %>
+        <div class="field">
+          <div class="field-label">Horario preferido:</div>
+          <div class="field-value"><%= @budget.horario_preferido %></div>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <div class="field-label">Fecha de solicitud:</div>
+        <div class="field-value"><%= @budget.created_at.strftime("%d/%m/%Y %H:%M") %></div>
+      </div>
+
+      <p style="margin-top: 30px;">
+        <a href="<%= admin_budget_url(@budget) %>" style="background-color: #2b3760; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+          Ver en el panel de administración
+        </a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
+
+

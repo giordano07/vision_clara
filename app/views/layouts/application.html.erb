@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Óptica COFICO" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Font Awesome for social icons %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <style>
+      :root {
+        --brand-primary: #1dbbb1; /* turquesa */
+        --brand-dark: #2b3760;    /* azul profundo */
+        --brand-header-light: #d8b4fe; /* violeta claro (un poco más oscuro) */
+        --brand-bg: #f7fafc;
+        --brand-text: #111827;
+      }
+      body { 
+        background: var(--brand-bg); 
+        color: var(--brand-text); 
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      main { flex: 1; }
+      .site-header {
+        /* Fallback color */
+        background: var(--brand-header-light);
+        /* Imagen de fondo */
+        background-image: url('<%= asset_path("encabezado.jpg") %>');
+        /* Vista original (cubre todo el header) */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: var(--brand-dark);
+      }
+      .site-header a { color: var(--brand-dark); text-decoration: none; }
+      .site-header a:hover { text-decoration: underline; }
+      
+      /* Footer */
+      .site-footer {
+        background: var(--brand-dark);
+        color: var(--brand-primary);
+        padding: 2rem 1rem;
+        margin-top: auto;
+      }
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .footer-address {
+        font-size: 1.1rem;
+        font-weight: 500;
+        text-align: left;
+        flex: 1;
+      }
+      .footer-social {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+      }
+      .social-link {
+        color: var(--brand-primary);
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 500;
+        transition: opacity 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .social-link:hover {
+        opacity: 0.8;
+      }
+      .social-icon {
+        font-size: 2.5rem;
+      }
+      @media (max-width: 768px) {
+        .footer-content {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+        .footer-social {
+          gap: 2rem;
+        }
+      }
+      .site-header-inner { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 0; padding:60px;}
+      /* Acercar el título al logo */
+      .site-logo-wrap { flex: 0 0 22%; display: flex; align-items: center; }
+      .site-title { flex: 1 1 78%; font-weight: 800; font-size: 5.5rem; line-height: 1.05; margin: 0; text-align: center; transform: translateX(-22%); }
+      /* Mantener proporción visual con el título (doble tamaño) */
+      .site-logo { height: 320px; width: auto; display: block; }
+      @media (max-width: 640px) {
+        .site-title { font-size: 4.5rem; transform: translateX(-14%); }
+        .site-logo { height: 240px; }
+      }
+    </style>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <div class="site-logo-wrap">
+          <%= image_tag "logo.png", alt: "Óptica COFICO", class: "site-logo" %>
+        </div>
+        <h1 class="site-title"><span>Óptica</span><span style="font-weight:400;"> COFICO</span></h1>
+      </div>
+    </header>
+    <main class="container mx-auto mt-10 px-5">
+      <%= yield %>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-address">
+          Dirección: Bedoya 409, Cofico, Ciudad de Córdoba
+        </div>
+        <div class="footer-social">
+          <a href="https://wa.me/3513033711" target="_blank" rel="noopener" class="social-link" title="WhatsApp: 3513033711">
+            <i class="fab fa-whatsapp social-icon"></i>
+          </a>
+          <a href="https://facebook.com/p/Optica-cofico-100057705157885" target="_blank" rel="noopener" class="social-link" title="Facebook: Óptica Cofico">
+            <i class="fab fa-facebook social-icon"></i>
+          </a>
+          <a href="https://instagram.com/OpticaCofico" target="_blank" rel="noopener" class="social-link" title="Instagram: Óptica Cofico">
+            <i class="fab fa-instagram social-icon"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

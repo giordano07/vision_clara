@@ -1,0 +1,447 @@
+/* Minimal placeholder to satisfy Propshaft asset lookup.
+   For full styling, replace with compiled ActiveAdmin CSS via SCSS or bundling. */
+
+:root {
+  --aa-primary: #c41e3a; /* rojo carmesí */
+  --aa-primary-600: #8b0000; /* rojo oscuro */
+  --aa-accent: #ff6b6b;  /* rojo claro de acento */
+  --aa-bg: #f7fafc;
+  --aa-surface: #ffffff;
+  --aa-border: #e5e7eb;
+  --aa-text: #111827;
+  --aa-muted: #6b7280;
+  --aa-success-bg: #ecfdf5;
+  --aa-success-text: #065f46;
+  --aa-danger-bg: #fef2f2;
+  --aa-danger-text: #991b1b;
+}
+
+body.active_admin {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--aa-text);
+  background: var(--aa-bg);
+}
+
+/* Basic layout tweaks to keep pages usable */
+.flashes { margin: 1rem; }
+.flashes .flash { padding: .75rem 1rem; border-radius: .375rem; margin-bottom: .5rem; border: 1px solid var(--aa-border); }
+.flash_notice { background: var(--aa-success-bg); color: var(--aa-success-text); }
+.flash_alert { background: var(--aa-danger-bg); color: var(--aa-danger-text); }
+
+/* Ensure forms are readable */
+form input, form select, form textarea {
+  display: block;
+  max-width: 36rem;
+  width: 100%;
+  padding: .5rem .625rem;
+  border: 1px solid var(--aa-border);
+  border-radius: .375rem;
+  background: var(--aa-surface);
+}
+
+form label { display: block; margin: .5rem 0 .25rem; color: var(--aa-muted); font-weight: 600; }
+
+/* Buttons */
+input[type="submit"],
+button,
+.button,
+form .actions input[type="submit"] {
+  appearance: none;
+  background: linear-gradient(to bottom, #c41e3a 0%, #8b0000 100%);
+  color: #fff;
+  padding: .5rem .9rem;
+  border: 1px solid #8b0000;
+  border-radius: .375rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover,
+button:hover,
+.button:hover,
+form .actions input[type="submit"]:hover { 
+  background: linear-gradient(to bottom, #8b0000 0%, #c41e3a 100%); 
+}
+
+/* Cards/containers */
+.panel, .attributes_table, .index_as_table {
+  background: var(--aa-surface);
+  border: 1px solid var(--aa-border);
+  border-radius: .5rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; }
+table th, table td { padding: .75rem .75rem; border-bottom: 1px solid var(--aa-border); }
+table th { text-align: left; color: var(--aa-muted); font-weight: 700; font-size: .9rem; }
+table tr:hover td { background: #fafafa; }
+
+/* Header */
+#header, .header {
+  background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#header a { 
+  color: #ffffff; 
+  text-decoration: none; 
+}
+
+#header a:hover { 
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor izquierdo con título y tabs */
+#header .header_left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+/* Navbar tabs horizontal */
+#header #tabs {
+  list-style: none; 
+  margin: 0; 
+  padding: 0; 
+  display: flex; 
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0; 
+  align-items: center; 
+}
+
+#header #tabs > li { 
+  margin: 0; 
+  padding: 0; 
+  display: inline-block;
+}
+
+#header #tabs > li > a {
+  display: block;
+  padding: 15px 20px;
+  color: #ffffff;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+#header #tabs > li > a:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-bottom-color: #ffffff;
+}
+
+#header #tabs > li.current > a,
+#header #tabs > li.has_nested.current > a {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-bottom-color: #ffffff;
+  font-weight: bold;
+}
+
+#header ul { 
+  list-style: none; 
+  margin: 0; 
+  padding: 0; 
+  display: flex; 
+  gap: 0.5rem; 
+  align-items: center; 
+}
+
+#header li { margin: 0; padding: 0; }
+
+#header .site_title, #header h1 { 
+  margin: 0; 
+  padding: .75rem 1rem; 
+  font-weight: 800; 
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+/* Utility navigation - alineado a la derecha */
+#header #utility_nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
+  margin-left: auto;
+}
+
+#header #utility_nav a,
+#header #utility_nav span {
+  color: #ffffff;
+  padding: 10px 15px;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+#header #utility_nav a:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+}
+
+/* Login page */
+.logged_out #active_admin_content {
+  max-width: 28rem;
+  margin: 3rem auto;
+  padding: 1.25rem;
+  background: var(--aa-surface);
+  border: 1px solid var(--aa-border);
+  border-radius: .5rem;
+}
+
+/* Personalización adicional - Tema Rojo */
+
+/* Títulos de página */
+#title_bar {
+  background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+  padding: 1rem;
+  border-radius: .5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#title_bar h2, 
+#title_bar h2 a {
+  color: #ffffff !important;
+  margin: 0;
+}
+
+/* Action items alineados a la derecha */
+#title_bar .action_items {
+  margin-left: auto;
+}
+
+#title_bar .action_items a,
+#title_bar .action_items .button {
+  background: #ffffff;
+  color: #c41e3a;
+  border: none;
+  padding: .5rem 1rem;
+  border-radius: .375rem;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#title_bar .action_items a:hover,
+#title_bar .action_items .button:hover {
+  background: #ffcccc;
+}
+
+/* Tablas - Headers rojos */
+table.index_table th {
+  background: linear-gradient(to bottom, #c41e3a 0%, #a01729 100%);
+  color: #ffffff !important;
+}
+
+table.index_table th a,
+table.index_table th a:link,
+table.index_table th a:visited {
+  color: #ffffff !important;
+  font-weight: bold;
+}
+
+.attributes_table th {
+  background: #c41e3a;
+  color: #ffffff !important;
+}
+
+/* Sidebar */
+#sidebar .sidebar_section h3 {
+  background: #c41e3a;
+  color: #ffffff;
+  padding: .75rem 1rem;
+  border-radius: .375rem .375rem 0 0;
+}
+
+/* Links en general */
+a {
+  color: #c41e3a;
+}
+
+a:hover {
+  color: #8b0000;
+}
+
+/* Paginación */
+.pagination a,
+.pagination span {
+  border: 1px solid #c41e3a;
+  color: #c41e3a;
+  padding: .5rem .75rem;
+  margin: 0 .25rem;
+  border-radius: .375rem;
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  background: #c41e3a;
+  color: #ffffff;
+}
+
+.pagination .current,
+.pagination span.current {
+  background: #c41e3a;
+  border-color: #c41e3a;
+  color: #ffffff;
+}
+
+/* Panel headers */
+.panel h3,
+.panel_contents h3 {
+  background: #c41e3a;
+  color: #ffffff;
+  padding: .75rem 1rem;
+  margin: 0;
+}
+
+/* Breadcrumbs */
+.breadcrumb a {
+  color: #c41e3a;
+}
+
+.breadcrumb a:hover {
+  color: #8b0000;
+}
+
+/* Status tags con tema rojo */
+.status_tag {
+  background: #c41e3a;
+  color: #ffffff;
+  padding: .25rem .5rem;
+  border-radius: .25rem;
+  font-size: .875rem;
+}
+
+.status_tag.yes, .status_tag.complete {
+  background: #065f46;
+}
+
+.status_tag.no, .status_tag.error {
+  background: #991b1b;
+}
+
+/* Dropdown menus */
+.dropdown_menu {
+  background: #c41e3a;
+}
+
+.dropdown_menu a {
+  color: #ffffff;
+}
+
+.dropdown_menu a:hover {
+  background: #8b0000;
+}
+
+/* Filter sidebar */
+#filters_sidebar_section .filter_form_field label {
+  color: #c41e3a;
+  font-weight: 600;
+}
+
+/* Batch Actions - Alinear en una sola fila */
+.table_tools {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: .375rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.table_tools .batch_actions_selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.table_tools .batch_actions_selector label {
+  margin: 0;
+  font-weight: 600;
+  color: #c41e3a;
+}
+
+.table_tools .batch_actions_selector select {
+  padding: .5rem;
+  border: 1px solid #c41e3a;
+  border-radius: .375rem;
+}
+
+.table_tools .batch_actions_selector input[type="submit"] {
+  margin-left: 0.5rem;
+}
+
+/* Quitar estilo de lista del delete selected y otros elementos */
+.batch_actions_selector form,
+.dropdown_menu_list_wrapper {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.batch_actions_selector li,
+.dropdown_menu_list li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.dropdown_menu_button {
+  list-style: none !important;
+  margin: 0;
+}
+
+.dropdown_menu_button::before,
+.batch_actions_selector li::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* Scopes (filtros superiores) en una sola línea */
+.scopes {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.scopes .scope {
+  display: inline-block;
+  padding: .5rem 1rem;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: .375rem;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.scopes .scope:hover {
+  background: #c41e3a;
+  color: #ffffff;
+  border-color: #c41e3a;
+}
+
+.scopes .scope.selected {
+  background: #c41e3a;
+  color: #ffffff;
+  border-color: #c41e3a;
+  font-weight: bold;
+}
+
+

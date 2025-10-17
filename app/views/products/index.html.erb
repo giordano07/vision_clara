@@ -1,0 +1,290 @@
+<style>
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #2b3760;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(43, 55, 96, 0.2);
+  }
+  .back-button:hover {
+    background: #1e2849;
+    transform: translateX(-4px);
+    box-shadow: 0 4px 8px rgba(43, 55, 96, 0.3);
+  }
+  
+  .subcategory-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    border: 3px solid #e5e7eb;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    flex: 1; /* Ocupa el espacio disponible */
+    min-height: 420px;
+    background: white;
+    margin-right: 2rem; /* Espacio entre tarjetas */
+    vertical-align: top;
+  }
+  
+  .subcategory-card:last-child {
+    margin-right: 0; /* Sin margen en la última tarjeta */
+  }
+  .subcategory-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+    border-color: #1dbbb1;
+  }
+  .subcategory-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: center center;
+  }
+  .subcategory-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    padding: 2rem;
+    color: white;
+  }
+  .subcategory-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+  }
+  
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .page-title {
+    color: #2b3760;
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2;
+  }
+  
+  @media (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .header-container > div:last-child {
+      display: none;
+    }
+    .page-title {
+      font-size: 2.5rem;
+    }
+    
+    .subcategory-card {
+      width: 250px; /* Slightly smaller on mobile */
+      min-height: 380px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .subcategory-card {
+      width: 220px; /* Even smaller on very small screens */
+      min-height: 350px;
+    }
+  }
+  
+  /* Estilos para listado de productos */
+  .products-section {
+    margin-top: 2rem;
+  }
+  
+  .product-card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  }
+  
+  .product-image-container {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    background: #f7fafc;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .product-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7fafc;
+  }
+  
+  .product-content {
+    padding: 1.5rem;
+  }
+  
+  .product-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #2b3760;
+    margin-bottom: 0.75rem;
+  }
+  
+  .product-description {
+    color: #6b7280;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  .product-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2b3760;
+    margin-bottom: 1rem;
+  }
+  
+  .product-whatsapp-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #25d366;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .product-whatsapp-button:hover {
+    background: #20ba5a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3);
+  }
+  
+  .empty-products {
+    text-align: center;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+</style>
+
+<!-- Contenedor del botón y título en una línea -->
+<div class="header-container">
+  <div>
+    <% if @subcategory.present? %>
+      <%= link_to category_path(@category), class: "back-button" do %>
+        <span>←</span>
+        <span>Volver a <%= Product.categoria_nombre(@category) %></span>
+      <% end %>
+    <% elsif @category.present? %>
+      <%= link_to root_path, class: "back-button" do %>
+        <span>←</span>
+        <span>Volver al inicio</span>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <div style="flex: 1; text-align: center;">
+    <h1 class="page-title">
+      <% if @category.present? %>
+        <%= Product.categoria_nombre(@category) %>
+        <% if @subcategory.present? %>
+          <span style="font-weight: 400;"> - <%= @subcategory.titleize %></span>
+        <% end %>
+      <% else %>
+        Productos
+      <% end %>
+    </h1>
+  </div>
+  
+  <div style="width: 180px;"></div>
+</div>
+
+<% if @category.present? && !@subcategory.present? %>
+  <!-- Contenedor de las tarjetas de subcategorías -->
+  <div class="flex flex-row mb-8 w-full" style="display: flex; flex-direction: row; align-items: stretch;">
+    <% Product::SUBCATEGORIAS[@category]&.each do |subcategoria| %>
+      <% productos_count = Product.where(activo: true, categoria: @category, subcategoria: subcategoria).count %>
+      <%= link_to category_subcategory_path(@category, subcategoria.parameterize), class: "subcategory-card" do %>
+        <%= image_tag "#{@category}-#{subcategoria.parameterize}.jpg", 
+                      alt: subcategoria.titleize, 
+                      class: "subcategory-image" %>
+        <div class="subcategory-overlay">
+          <h2 class="subcategory-title"><%= subcategoria.titleize %></h2>
+          <p class="text-sm opacity-90 mt-2">
+            <%= productos_count %> <%= productos_count == 1 ? 'producto' : 'productos' %> disponible<%= productos_count == 1 ? '' : 's' %> →
+          </p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+<!-- Sección para mostrar productos cuando hay subcategoría seleccionada -->
+<% if @subcategory.present? && @products.any? %>
+  <div class="products-section">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @products.each do |product| %>
+        <div class="product-card">
+          <div class="product-image-container">
+            <% if product.imagen.attached? %>
+              <%= image_tag product.imagen, alt: product.nombre, class: "product-image" %>
+            <% else %>
+              <div class="product-image-placeholder">
+                <i class="fas fa-glasses" style="font-size: 3rem; color: #cbd5e0;"></i>
+              </div>
+            <% end %>
+          </div>
+          <div class="product-content">
+            <h2 class="product-name"><%= product.nombre %></h2>
+            <p class="product-description"><%= product.descripcion %></p>
+            <p class="product-price">$ <%= number_with_precision(product.precio, precision: 2) %></p>
+            <%= link_to whatsapp_link_for(product.nombre), class: "product-whatsapp-button", target: "_blank", rel: "noopener" do %>
+              <i class="fab fa-whatsapp"></i>
+              <span>Consultar por WhatsApp</span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% elsif @subcategory.present? && @products.empty? %>
+  <div class="empty-products">
+    <i class="fas fa-inbox" style="font-size: 4rem; color: #cbd5e0; margin-bottom: 1rem;"></i>
+    <p class="text-gray-500 text-lg">No hay productos disponibles en esta categoría.</p>
+  </div>
+<% end %>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Óptica COFICO - Admin" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <%= stylesheet_link_tag "active_admin", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "active_admin", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "active_admin_image_preview", "data-turbo-track": "reload" %>
+    
+    <script>
+      // Disable Turbo for ActiveAdmin
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof Turbo !== 'undefined') {
+          Turbo.session.drive = false;
+        }
+      });
+    </script>
+    
+    <%= yield :head %>
+  </head>
+
+  <body class="active_admin">
+    <%= yield %>
+  </body>
+</html>

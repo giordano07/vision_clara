@@ -1,0 +1,142 @@
+es:
+  active_admin:
+    dashboard: "Panel de Control"
+    dashboard_welcome:
+      welcome: "Bienvenido a Optica Cofico Admin"
+      call_to_action: "Para agregar secciones al panel de control, consulta 'admin/dashboard.rb'"
+    view: "Ver"
+    edit: "Editar"
+    delete: "Eliminar"
+    delete_confirmation: "¿Estás seguro de que deseas eliminar esto?"
+    new_model: "Nuevo %{model}"
+    edit_model: "Editar %{model}"
+    create_model: "Crear %{model}"
+    update_model: "Actualizar %{model}"
+    delete_model: "Eliminar %{model}"
+    details: "%{model} Detalles"
+    cancel: "Cancelar"
+    empty: "Vacío"
+    previous: "Anterior"
+    next: "Siguiente"
+    download: "Descargar:"
+    has_many_new: "Agregar Nuevo %{model}"
+    has_many_delete: "Eliminar"
+    has_many_remove: "Quitar"
+    filters:
+      buttons:
+        filter: "Filtrar"
+        clear: "Limpiar Filtros"
+      predicates:
+        contains: "Contiene"
+        equals: "Igual a"
+        starts_with: "Comienza con"
+        ends_with: "Termina con"
+        greater_than: "Mayor que"
+        less_than: "Menor que"
+        from: "Desde"
+        to: "Hasta"
+    search_status:
+      headline: "Estado de búsqueda:"
+      current_scope: "Ámbito:"
+      current_filters: "Filtros actuales:"
+      no_current_filters: "Ninguno"
+    status_tag:
+      "yes": "Sí"
+      "no": "No"
+      unset: "Sin establecer"
+    main_content: "Por favor implementa %{model}#main_content para mostrar contenido."
+    logout: "Cerrar Sesión"
+    powered_by: "Desarrollado con %{active_admin} %{version}"
+    sidebars:
+      filters: "Filtros"
+    pagination:
+      empty: "No se encontraron %{model}"
+      one: "Mostrando <b>1</b> %{model}"
+      one_page: "Mostrando <b>todos los %{n}</b> %{model}"
+      multiple: "Mostrando %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de un total de <b>%{total}</b>"
+      multiple_without_total: "Mostrando %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b>"
+      entry:
+        one: "registro"
+        other: "registros"
+    any: "Cualquiera"
+    blank_slate:
+      content: "No hay %{resource_name} aún."
+      link: "Crear uno"
+    dropdown_actions:
+      button_label: "Acciones"
+    batch_actions:
+      button_label: "Acciones en lote"
+      default_confirmation: "¿Estás seguro de que deseas hacer esto?"
+      delete_confirmation: "¿Estás seguro de que deseas eliminar estos %{plural_model}?"
+      succesfully_destroyed:
+        one: "Se eliminó exitosamente 1 %{model}"
+        other: "Se eliminaron exitosamente %{count} %{plural_model}"
+      selection_toggle_explanation: "(Alternar Selección)"
+      action_label: "%{title} Seleccionado(s)"
+      labels:
+        destroy: "Eliminar"
+    comments:
+      created_at: "Fecha de Creación"
+      resource_type: "Tipo de Recurso"
+      author_type: "Tipo de Autor"
+      body: "Cuerpo"
+      author: "Autor"
+      title: "Comentario"
+      add: "Agregar Comentario"
+      resource: "Recurso"
+      no_comments_yet: "Aún no hay comentarios."
+      author_missing: "Anónimo"
+      title_content: "Comentarios (%{count})"
+      errors:
+        empty_text: "El comentario no se guardó, el texto estaba vacío."
+    devise:
+      username:
+        title: "Nombre de Usuario"
+      email:
+        title: "Email"
+      subdomain:
+        title: "Subdominio"
+      password:
+        title: "Contraseña"
+      sign_up:
+        title: "Registrarse"
+        submit: "Registrarse"
+      login:
+        title: "Iniciar Sesión"
+        remember_me: "Recordarme"
+        submit: "Iniciar Sesión"
+      reset_password:
+        title: "¿Olvidaste tu contraseña?"
+        submit: "Restablecer Mi Contraseña"
+      change_password:
+        title: "Cambiar tu contraseña"
+        submit: "Cambiar mi contraseña"
+      unlock:
+        title: "Reenviar instrucciones de desbloqueo"
+        submit: "Reenviar instrucciones de desbloqueo"
+      resend_confirmation_instructions:
+        title: "Reenviar instrucciones de confirmación"
+        submit: "Reenviar instrucciones de confirmación"
+      links:
+        sign_in: "Iniciar Sesión"
+        forgot_your_password: "¿Olvidaste tu contraseña?"
+        sign_in_with_omniauth_provider: "Iniciar sesión con %{provider}"
+        resend_unlock_instructions: "Reenviar instrucciones de desbloqueo"
+        resend_confirmation_instructions: "Reenviar instrucciones de confirmación"
+    unsupported_browser:
+      headline: "Por favor ten en cuenta que ActiveAdmin ya no soporta versiones antiguas de Internet Explorer desde la versión 0.9"
+      recommendation: "Te recomendamos actualizar a la última versión de <a href=\"https://www.google.com/chrome/\">Google Chrome</a> o <a href=\"https://www.mozilla.org/firefox/\">Firefox</a>."
+      turn_off_compatibility_view: "Si estás usando IE 9 o posterior, asegúrate de <a href=\"https://support.microsoft.com/es-es/windows/desactivar-la-vista-de-compatibilidad-en-internet-explorer-11-f5a6-5c0e-4f6d-b0e0-8e2e5e5e5e5e\">desactivar la \"Vista de Compatibilidad\"</a>."
+    access_denied:
+      message: "No estás autorizado para realizar esta acción."
+    index_list:
+      table: "Tabla"
+      block: "Lista"
+      grid: "Cuadrícula"
+      blog: "Blog"
+    scopes:
+      all: "Todos"
+    clear_filters: "Limpiar Filtros"
+    equal_to: "="
+
+

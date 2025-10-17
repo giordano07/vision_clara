@@ -1,0 +1,37 @@
+¡Gracias por tu solicitud!
+==========================
+
+Hola <%= @budget.nombre %>,
+
+Hemos recibido tu solicitud de presupuesto y nos pondremos en contacto contigo lo antes posible.
+
+Estos son los datos que nos enviaste:
+
+Nombre: <%= @budget.nombre %>
+Teléfono: <%= @budget.telefono %>
+Email: <%= @budget.email %>
+
+<% if @budget.tipo_lentes.present? %>
+Tipo de lentes: <%= @budget.tipo_lentes %>
+<% end %>
+
+<% if @budget.motivo.present? %>
+Motivo de consulta:
+<%= @budget.motivo %>
+<% end %>
+
+<% if @budget.preferencia_contacto.present? %>
+Preferencia de contacto: <%= @budget.preferencia_contacto %>
+<% end %>
+
+<% if @budget.horario_preferido.present? %>
+Horario preferido: <%= @budget.horario_preferido %>
+<% end %>
+
+Si necesitas realizar alguna modificación o tienes alguna pregunta, no dudes en contactarnos.
+
+Óptica Cofico
+Email: contacto@opticacofico.com
+Teléfono: (011) XXXX-XXXX
+
+

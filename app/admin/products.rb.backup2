@@ -1,0 +1,117 @@
+ActiveAdmin.register Product do
+  permit_params :nombre, :descripcion, :precio, :activo, :imagen, :categoria, :subcategoria
+
+  # Habilitar todas las acciones incluyendo destroy
+  actions :all
+
+  index do
+    selectable_column
+    id_column
+    column :nombre
+    column :categoria do |product|
+      Product.categoria_nombre(product.categoria)
+    end
+    column :subcategoria
+    column :precio do |product|
+      number_to_currency(product.precio, unit: '$', precision: 2)
+    end
+    column :activo do |product|
+      product.activo? ? "✅ Activo" : "❌ Inactivo"
+    end
+    column :imagen do |product|
+      if product.imagen.attached?
+        image_tag product.imagen, style: 'height: 50px; width: auto;'
+      else
+        "Sin imagen"
+      end
+    end
+    column :created_at
+    
+    # Botones de acciones personalizados y estilizados
+    column "Acciones", class: "text-center" do |product|
+      content_tag :div, style: 'display: flex; gap: 8px; justify-content: center; align-items: center;' do
+        link_to('👁️ Ver', admin_product_path(product), 
+                class: 'btn btn-sm btn-info', 
+                style: 'background: #17a2b8; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; border: none; font-size: 12px; display: inline-flex; align-items: center; gap: 4px;',
+                title: 'Ver detalles') +
+        
+        link_to('✏️ Editar', edit_admin_product_path(product), 
+                class: 'btn btn-sm btn-warning', 
+                style: 'background: #ffc107; color: #212529; padding: 6px 12px; border-radius: 4px; text-decoration: none; border: none; font-size: 12px; display: inline-flex; align-items: center; gap: 4px;',
+                title: 'Editar producto') +
+        
+# Líneas 43-50 del archivo
+button_to('🗑️ Eliminar', admin_product_path(product), 
+          method: :delete,
+          form: { style: 'display: inline;', data: { turbo: false } },
+          data: { confirm: '¿Estás seguro de que quieres eliminar este producto?' },
+          class: 'btn btn-sm btn-danger', 
+          style: 'background: #dc3545; color: white; padding: 6px 12px; border-radius: 4px; border: none; font-size: 12px; display: inline-flex; align-items: center; gap: 4px; cursor: pointer;',
+          title: 'Eliminar producto')
+      end
+    end
+  end
+
+  filter :nombre
+  filter :categoria, as: :select, collection: Product::CATEGORIAS
+  filter :subcategoria
+  filter :activo
+  filter :created_at
+
+  form do |f|
+    f.inputs 'Detalles del Producto' do
+      f.input :nombre
+      f.input :descripcion
+      f.input :categoria, as: :select, collection: Product::CATEGORIAS, 
+              include_blank: 'Selecciona una categoría',
+              input_html: { 
+                id: 'product_categoria',
+                onchange: "updateSubcategorias(this.value)"
+              }
+      f.input :subcategoria, as: :select, 
+              collection: [], 
+              include_blank: 'Primero selecciona una categoría',
+              input_html: { id: 'product_subcategoria' }
+      f.input :precio
+      f.input :activo
+      
+      f.input :imagen, as: :file
+    end
+    f.actions
+  end
+
+
+
+  # Agregar JavaScript personalizado en las páginas de formulario
+  show do
+    attributes_table do
+      row :nombre
+      row :descripcion
+      row :categoria do |product|
+        Product.categoria_nombre(product.categoria)
+      end
+      row :subcategoria
+      row :precio do |product|
+        number_to_currency(product.precio, unit: '$', precision: 2)
+      end
+      row :activo do |product|
+        product.activo? ? "✅ Activo" : "❌ Inactivo"
+      end
+      row :imagen do |product|
+        if product.imagen.attached?
+          image_tag product.imagen, style: 'max-width: 300px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);'
+        else
+          'Sin imagen'
+        end
+      end
+      row :created_at
+      row :updated_at
+    end
+  end
+end
+
+
+
+
+
+

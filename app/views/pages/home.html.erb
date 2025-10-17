@@ -1,0 +1,127 @@
+<style>
+  /* Contenedor del botón - Primera línea */
+  .budget-button-container {
+    width: 100%;
+    text-align: right;
+    padding: 1rem 1rem 3rem 1rem;
+    margin: 0;
+    display: block;
+  }
+  
+  .budget-button {
+    display: inline-block;
+    background: #2b3760;
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .budget-button:hover {
+    background: #1e2849;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+  }
+  
+  /* Sección de categorías - Segunda línea */
+  .categories-section {
+    width: 100%;
+    padding: 1rem;
+    display: block;
+  }
+  
+  .categories-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 100%;
+  }
+  
+  .category-card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+  }
+  
+  .category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  }
+  
+  .category-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+  
+  .category-content {
+    padding: 1.5rem;
+  }
+  
+  .category-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #2b3760;
+    margin-bottom: 1rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 968px) {
+    .categories-grid {
+      flex-direction: column;
+    }
+    .category-card {
+      max-width: 100%;
+    }
+    .budget-button-container {
+      text-align: center;
+      padding: 1rem;
+    }
+  }
+</style>
+
+<section class="categories-section">
+  <div class="budget-button-container">
+    <%= link_to "Solicitar Presupuesto", new_budget_path, class: "budget-button" %>
+  </div>
+
+  <div class="categories-grid">
+    <!-- Niños -->
+    <%= link_to category_path("ninos"), class: "category-card" do %>
+      <%= image_tag "portadanino.jpg", alt: "Lentes para Niños", class: "category-image" %>
+      <div class="category-content">
+        <h2 class="category-title">Niños</h2>
+      </div>
+    <% end %>
+
+    <!-- Damas -->
+    <%= link_to category_path("damas"), class: "category-card" do %>
+      <%= image_tag "portadadama.jpg", alt: "Lentes para Damas", class: "category-image" %>
+      <div class="category-content">
+        <h2 class="category-title">Damas</h2>
+      </div>
+    <% end %>
+
+    <!-- Caballeros -->
+    <%= link_to category_path("caballeros"), class: "category-card" do %>
+      <%= image_tag "portadacaballero.jpg", alt: "Lentes para Caballeros", class: "category-image" %>
+      <div class="category-content">
+        <h2 class="category-title">Caballeros</h2>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+

@@ -1,0 +1,33 @@
+Nueva Solicitud de Presupuesto
+================================
+
+Se ha recibido una nueva solicitud de presupuesto:
+
+Nombre: <%= @budget.nombre %>
+Teléfono: <%= @budget.telefono %>
+DNI: <%= @budget.dni %>
+Email: <%= @budget.email %>
+
+<% if @budget.tipo_lentes.present? %>
+Tipo de lentes: <%= @budget.tipo_lentes %>
+<% end %>
+
+<% if @budget.motivo.present? %>
+Motivo de consulta:
+<%= @budget.motivo %>
+<% end %>
+
+<% if @budget.preferencia_contacto.present? %>
+Preferencia de contacto: <%= @budget.preferencia_contacto %>
+<% end %>
+
+<% if @budget.horario_preferido.present? %>
+Horario preferido: <%= @budget.horario_preferido %>
+<% end %>
+
+Fecha de solicitud: <%= @budget.created_at.strftime("%d/%m/%Y %H:%M") %>
+
+Ver en el panel de administración:
+<%= admin_budget_url(@budget) %>
+
+

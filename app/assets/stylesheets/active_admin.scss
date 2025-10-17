@@ -1,0 +1,154 @@
+// Sass variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Configuración de colores rojos para el tema
+$primary-color: #c41e3a;
+$secondary-color: #8b0000;
+$skinny-header-bg-color: #c41e3a;
+$header-text-color: #ffffff;
+$link-color: #c41e3a;
+$section-header-text-color: #c41e3a;
+
+// Active Admin's got SASS!
+@import "active_admin/mixins";
+@import "active_admin/base";
+
+// Overriding any non-variable Sass must be done after the fact.
+// For example, to change the default status-tag color:
+//
+//   .status_tag { background: #6090DB; }
+
+// Personalización de la navbar - alineación horizontal
+#header {
+  background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+  
+  #tabs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0;
+    
+    > li {
+      display: inline-block;
+      margin: 0;
+      
+      a {
+        color: #ffffff;
+        padding: 15px 20px;
+        display: block;
+        border-bottom: 3px solid transparent;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.2);
+          border-bottom-color: #ffffff;
+        }
+      }
+      
+      &.current a {
+        background-color: rgba(0, 0, 0, 0.3);
+        border-bottom-color: #ffffff;
+        font-weight: bold;
+      }
+    }
+  }
+  
+  #utility_nav {
+    background: rgba(0, 0, 0, 0.2);
+    
+    a {
+      color: #ffffff;
+      
+      &:hover {
+        color: #ffcccc;
+      }
+    }
+  }
+}
+
+// Personalización de botones con tema rojo
+.button, input[type="submit"], input[type="button"] {
+  background: linear-gradient(to bottom, #c41e3a 0%, #8b0000 100%);
+  border-color: #8b0000;
+  
+  &:hover {
+    background: linear-gradient(to bottom, #8b0000 0%, #c41e3a 100%);
+  }
+}
+
+// Personalización de links
+a {
+  color: #c41e3a;
+  
+  &:hover {
+    color: #8b0000;
+  }
+}
+
+// Headers de sección
+.panel_contents .attributes_table th {
+  background: #c41e3a;
+  color: #ffffff;
+}
+
+// Tablas
+.index_table th {
+  background: linear-gradient(to bottom, #c41e3a 0%, #a01729 100%);
+  
+  a, a:link, a:visited {
+    color: #ffffff;
+    font-weight: bold;
+  }
+}
+
+// Títulos de página
+#title_bar {
+  background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+  
+  h2, h2 a {
+    color: #ffffff;
+  }
+  
+  .action_items a {
+    background: #ffffff;
+    color: #c41e3a;
+    
+    &:hover {
+      background: #ffcccc;
+    }
+  }
+}
+
+// Sidebar
+#sidebar {
+  .sidebar_section {
+    h3 {
+      background: #c41e3a;
+      color: #ffffff;
+    }
+  }
+}
+
+// Paginación
+.pagination a {
+  border-color: #c41e3a;
+  color: #c41e3a;
+  
+  &:hover {
+    background: #c41e3a;
+    color: #ffffff;
+  }
+}
+
+.pagination .current {
+  background: #c41e3a;
+  border-color: #c41e3a;
+  color: #ffffff;
+}
