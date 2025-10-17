@@ -75,20 +75,6 @@ es:
       action_label: "%{title} Seleccionado(s)"
       labels:
         destroy: "Eliminar"
-    comments:
-      created_at: "Fecha de Creación"
-      resource_type: "Tipo de Recurso"
-      author_type: "Tipo de Autor"
-      body: "Cuerpo"
-      author: "Autor"
-      title: "Comentario"
-      add: "Agregar Comentario"
-      resource: "Recurso"
-      no_comments_yet: "Aún no hay comentarios."
-      author_missing: "Anónimo"
-      title_content: "Comentarios (%{count})"
-      errors:
-        empty_text: "El comentario no se guardó, el texto estaba vacío."
     devise:
       username:
         title: "Nombre de Usuario"
