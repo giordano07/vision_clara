@@ -18,9 +18,3 @@ class ProductsController < ApplicationController
     @products = @products.order(created_at: :desc)
   end
 end
-
-
-
-
-
-

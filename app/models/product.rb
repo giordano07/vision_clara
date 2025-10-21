@@ -9,8 +9,8 @@ class Product < ApplicationRecord
   CATEGORIAS = ['ninos', 'damas', 'caballeros'].freeze
   SUBCATEGORIAS = {
     'ninos' => ['lentes de sol', 'lentes recetados'],
-    'damas' => ['lentes de sol', 'lentes recetados', 'clip-on'],
-    'caballeros' => ['lentes de sol', 'lentes recetados', 'clip-on']
+    'damas' => ['lentes de sol', 'lentes recetados', 'clip on'],
+    'caballeros' => ['lentes de sol', 'lentes recetados', 'clip on']
   }.freeze
   
   # Nombres formateados para mostrar

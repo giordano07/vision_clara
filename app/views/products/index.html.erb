@@ -105,11 +105,37 @@
       width: 220px; /* Even smaller on very small screens */
       min-height: 350px;
     }
+    
+    /* Ajustar productos para pantallas muy pequeñas */
+    .products-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+  
+  @media (min-width: 481px) and (max-width: 768px) {
+    /* 2 columnas en tablet */
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    /* 3 columnas en desktop */
+    .products-grid {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
   }
   
   /* Estilos para listado de productos */
   .products-section {
     margin-top: 2rem;
+  }
+  
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    width: 100%;
   }
   
   .product-card {
@@ -118,6 +144,9 @@
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   
   .product-card:hover {
@@ -149,6 +178,9 @@
   
   .product-content {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
   
   .product-name {
@@ -185,6 +217,7 @@
     transition: all 0.3s ease;
     width: 100%;
     justify-content: center;
+    margin-top: auto;
   }
   
   .product-whatsapp-button:hover {
@@ -257,7 +290,7 @@
 <!-- Sección para mostrar productos cuando hay subcategoría seleccionada -->
 <% if @subcategory.present? && @products.any? %>
   <div class="products-section">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="products-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
       <% @products.each do |product| %>
         <div class="product-card">
           <div class="product-image-container">

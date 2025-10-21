@@ -3,8 +3,8 @@
 // Subcategorías para productos
 const SUBCATEGORIAS = {
   'ninos': ['lentes de sol', 'lentes recetados'],
-  'damas': ['lentes de sol', 'lentes recetados', 'clip-on'],
-  'caballeros': ['lentes de sol', 'lentes recetados', 'clip-on']
+  'damas': ['lentes de sol', 'lentes recetados', 'clip on'],
+  'caballeros': ['lentes de sol', 'lentes recetados', 'clip on']
 };
 
 // Nombres formateados de categorías
