@@ -159,6 +159,7 @@
     height: 250px;
     overflow: hidden;
     background: #f7fafc;
+    position: relative;
   }
   
   .product-image {
@@ -174,6 +175,85 @@
     align-items: center;
     justify-content: center;
     background: #f7fafc;
+  }
+  
+  /* Estilos del carrusel */
+  .carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .carousel-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .carousel-item {
+    display: none;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .carousel-item.active {
+    display: block;
+  }
+  
+  .carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 10;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  
+  .carousel-control:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  
+  .carousel-control.prev {
+    left: 10px;
+  }
+  
+  .carousel-control.next {
+    right: 10px;
+  }
+  
+  .carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+  
+  .carousel-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s ease;
+  }
+  
+  .carousel-indicator.active {
+    background: rgba(255, 255, 255, 1);
+  }
+  
+  .carousel-indicator:hover {
+    background: rgba(255, 255, 255, 0.8);
   }
   
   .product-content {
@@ -291,11 +371,36 @@
 <% if @subcategory.present? && @products.any? %>
   <div class="products-section">
     <div class="products-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
-      <% @products.each do |product| %>
+      <% @products.each_with_index do |product, index| %>
         <div class="product-card">
           <div class="product-image-container">
-            <% if product.imagen.attached? %>
-              <%= image_tag product.imagen, alt: product.nombre, class: "product-image" %>
+            <% 
+              # Preferir imagenes nuevas, si no imagen antigua, si no placeholder
+              imagenes = product.imagenes.attached? ? product.imagenes : (product.imagen.attached? ? [product.imagen] : [])
+            %>
+            
+            <% if imagenes.any? %>
+              <div class="carousel" id="carousel-<%= product.id %>">
+                <div class="carousel-inner">
+                  <% imagenes.each_with_index do |imagen, img_index| %>
+                    <div class="carousel-item <%= 'active' if img_index == 0 %>">
+                      <%= image_tag imagen, alt: "#{product.nombre} - Imagen #{img_index + 1}", class: "product-image" %>
+                    </div>
+                  <% end %>
+                </div>
+                
+                <% if imagenes.count > 1 %>
+                  <button class="carousel-control prev" onclick="moveCarousel(<%= product.id %>, -1)">❮</button>
+                  <button class="carousel-control next" onclick="moveCarousel(<%= product.id %>, 1)">❯</button>
+                  
+                  <div class="carousel-indicators">
+                    <% imagenes.each_with_index do |_, img_index| %>
+                      <button class="carousel-indicator <%= 'active' if img_index == 0 %>" 
+                              onclick="goToSlide(<%= product.id %>, <%= img_index %>)"></button>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
             <% else %>
               <div class="product-image-placeholder">
                 <i class="fas fa-glasses" style="font-size: 3rem; color: #cbd5e0;"></i>
@@ -321,3 +426,92 @@
     <p class="text-gray-500 text-lg">No hay productos disponibles en esta categoría.</p>
   </div>
 <% end %>
+
+<script>
+  // Objeto para almacenar el índice actual de cada carrusel
+  const carouselStates = {};
+  
+  // Inicializar el estado de cada carrusel
+  document.addEventListener('DOMContentLoaded', function() {
+    const carousels = document.querySelectorAll('.carousel');
+    carousels.forEach(carousel => {
+      const productId = carousel.id.replace('carousel-', '');
+      carouselStates[productId] = 0;
+    });
+  });
+  
+  function moveCarousel(productId, direction) {
+    const carousel = document.getElementById('carousel-' + productId);
+    if (!carousel) return;
+    
+    const items = carousel.querySelectorAll('.carousel-item');
+    const indicators = carousel.querySelectorAll('.carousel-indicator');
+    
+    if (items.length === 0) return;
+    
+    // Obtener el índice actual
+    let currentIndex = carouselStates[productId] || 0;
+    
+    // Remover la clase active del elemento actual
+    items[currentIndex].classList.remove('active');
+    if (indicators.length > 0) {
+      indicators[currentIndex].classList.remove('active');
+    }
+    
+    // Calcular el nuevo índice
+    currentIndex = (currentIndex + direction + items.length) % items.length;
+    
+    // Agregar la clase active al nuevo elemento
+    items[currentIndex].classList.add('active');
+    if (indicators.length > 0) {
+      indicators[currentIndex].classList.add('active');
+    }
+    
+    // Guardar el nuevo estado
+    carouselStates[productId] = currentIndex;
+  }
+  
+  function goToSlide(productId, slideIndex) {
+    const carousel = document.getElementById('carousel-' + productId);
+    if (!carousel) return;
+    
+    const items = carousel.querySelectorAll('.carousel-item');
+    const indicators = carousel.querySelectorAll('.carousel-indicator');
+    
+    if (items.length === 0 || slideIndex < 0 || slideIndex >= items.length) return;
+    
+    // Obtener el índice actual
+    const currentIndex = carouselStates[productId] || 0;
+    
+    // Remover la clase active del elemento actual
+    items[currentIndex].classList.remove('active');
+    if (indicators.length > 0) {
+      indicators[currentIndex].classList.remove('active');
+    }
+    
+    // Agregar la clase active al nuevo elemento
+    items[slideIndex].classList.add('active');
+    if (indicators.length > 0) {
+      indicators[slideIndex].classList.add('active');
+    }
+    
+    // Guardar el nuevo estado
+    carouselStates[productId] = slideIndex;
+  }
+  
+  // Soporte para navegación con teclado (opcional pero mejora la UX)
+  document.addEventListener('keydown', function(e) {
+    const focusedCarousel = document.querySelector('.carousel:focus-within');
+    if (!focusedCarousel) return;
+    
+    const productId = focusedCarousel.id.replace('carousel-', '');
+    
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      moveCarousel(productId, -1);
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      moveCarousel(productId, 1);
+    }
+  });
+</script>

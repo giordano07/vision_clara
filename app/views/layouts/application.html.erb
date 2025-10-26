@@ -114,6 +114,68 @@
         .site-title { font-size: 4.5rem; transform: translateX(-14%); }
         .site-logo { height: 240px; }
       }
+      
+      /* Flash Messages */
+      .flash-message {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        max-width: 400px;
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        animation: slideIn 0.3s ease-out;
+        font-weight: 500;
+      }
+      
+      .flash-success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      
+      .flash-error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      
+      .flash-content {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      
+      .flash-content i {
+        font-size: 1.2rem;
+        flex-shrink: 0;
+      }
+      
+      .flash-content span {
+        flex: 1;
+        line-height: 1.4;
+      }
+      
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .flash-message {
+          top: 10px;
+          right: 10px;
+          left: 10px;
+          max-width: none;
+        }
+      }
     </style>
     <%= javascript_importmap_tags %>
   </head>
@@ -127,6 +189,26 @@
         <h1 class="site-title"><span>Óptica</span><span style="font-weight:400;"> COFICO</span></h1>
       </div>
     </header>
+    
+    <!-- Flash Messages -->
+    <% if notice %>
+      <div class="flash-message flash-success">
+        <div class="flash-content">
+          <i class="fas fa-check-circle"></i>
+          <span><%= notice %></span>
+        </div>
+      </div>
+    <% end %>
+    
+    <% if alert %>
+      <div class="flash-message flash-error">
+        <div class="flash-content">
+          <i class="fas fa-exclamation-circle"></i>
+          <span><%= alert %></span>
+        </div>
+      </div>
+    <% end %>
+    
     <main class="container mx-auto mt-10 px-5">
       <%= yield %>
     </main>
@@ -136,7 +218,7 @@
           Dirección: Bedoya 409, Cofico, Ciudad de Córdoba
         </div>
         <div class="footer-social">
-          <a href="https://wa.me/3513033711" target="_blank" rel="noopener" class="social-link" title="WhatsApp: 3513033711">
+          <a href="https://wa.me/5493513033711" target="_blank" rel="noopener" class="social-link" title="WhatsApp: +54 9 351 303 3711">
             <i class="fab fa-whatsapp social-icon"></i>
           </a>
           <a href="https://facebook.com/p/Optica-cofico-100057705157885" target="_blank" rel="noopener" class="social-link" title="Facebook: Óptica Cofico">
@@ -148,5 +230,37 @@
         </div>
       </div>
     </footer>
+    
+    <script>
+      // Auto-hide flash messages after 5 seconds
+      document.addEventListener('DOMContentLoaded', function() {
+        const flashMessages = document.querySelectorAll('.flash-message');
+        
+        flashMessages.forEach(function(message) {
+          setTimeout(function() {
+            message.style.animation = 'slideOut 0.3s ease-in forwards';
+            setTimeout(function() {
+              message.remove();
+            }, 300);
+          }, 5000);
+        });
+      });
+      
+      // Add slideOut animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideOut {
+          from {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          to {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
   </body>
 </html>

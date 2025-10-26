@@ -50,7 +50,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
       subcategoria: "lentes de sol",
       activo: true
     )
-    
+
     # Ver la subcategoría
     get category_subcategory_url("ninos", "lentes-de-sol")
     assert_response :success
@@ -60,16 +60,88 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   test "debe mostrar mensaje cuando no hay productos en subcategoria" do
     # Asegurarse de que no hay productos en esta subcategoría
     Product.where(categoria: "ninos", subcategoria: "lentes de sol").update_all(activo: false)
-    
+
     get category_subcategory_url("ninos", "lentes-de-sol")
     assert_response :success
     assert_select ".empty-products p", text: /No hay productos disponibles/i
   end
-  
+
   test "debe mostrar tarjetas de subcategorias cuando solo hay categoria" do
     get category_url("ninos")
     assert_response :success
     assert_select ".subcategory-card"
   end
-end
 
+  test "debe mostrar carrusel cuando producto tiene múltiples imágenes" do
+    product = Product.create!(
+      nombre: "Test Lentes con Múltiples Fotos",
+      descripcion: "Test",
+      precio: 100,
+      categoria: "ninos",
+      subcategoria: "lentes de sol",
+      activo: true
+    )
+
+    # Adjuntar múltiples imágenes
+    image1 = fixture_file_upload("test_image.jpg", "image/jpeg")
+    image2 = fixture_file_upload("test_image.jpg", "image/jpeg")
+    product.imagenes.attach([ image1, image2 ])
+
+    get category_subcategory_url("ninos", "lentes-de-sol")
+    assert_response :success
+
+    # Verificar que existe el carrusel
+    assert_select ".carousel#carousel-#{product.id}"
+    assert_select ".carousel-item", count: 2
+    assert_select ".carousel-control", count: 2
+    assert_select ".carousel-indicator", count: 2
+  end
+
+  test "no debe mostrar controles de carrusel cuando producto tiene solo una imagen" do
+    product = Product.create!(
+      nombre: "Test Lentes con Una Foto",
+      descripcion: "Test",
+      precio: 100,
+      categoria: "ninos",
+      subcategoria: "lentes de sol",
+      activo: true
+    )
+
+    # Adjuntar solo una imagen
+    image = fixture_file_upload("test_image.jpg", "image/jpeg")
+    product.imagenes.attach(image)
+
+    get category_subcategory_url("ninos", "lentes-de-sol")
+    assert_response :success
+
+    # Verificar que NO hay controles de carrusel
+    assert_select ".carousel-control", count: 0
+    assert_select ".carousel-indicator", count: 0
+
+    # Pero SÍ hay el carousel y la imagen
+    assert_select ".carousel#carousel-#{product.id}"
+    assert_select ".carousel-item", count: 1
+  end
+
+  test "debe usar imagen antigua si no hay imágenes nuevas" do
+    product = Product.create!(
+      nombre: "Test Lentes con Imagen Antigua",
+      descripcion: "Test",
+      precio: 100,
+      categoria: "ninos",
+      subcategoria: "lentes de sol",
+      activo: true
+    )
+
+    # Adjuntar imagen al sistema antiguo
+    image = fixture_file_upload("test_image.jpg", "image/jpeg")
+    product.imagen.attach(image)
+
+    get category_subcategory_url("ninos", "lentes-de-sol")
+    assert_response :success
+
+    # Verificar que se muestra la imagen en el carrusel
+    assert_select ".carousel#carousel-#{product.id}"
+    assert_select ".carousel-item", count: 1
+  end
+end
