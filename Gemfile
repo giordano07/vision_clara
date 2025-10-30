@@ -64,7 +64,7 @@ end
 
 gem "dotenv-rails", "~> 3.1"
 
-gem "tailwindcss-rails", "~> 4.3"
+gem "tailwindcss-rails", "~> 4.4"
 
 gem "activeadmin", "~> 3.3"
 gem "devise", "~> 4.9"
