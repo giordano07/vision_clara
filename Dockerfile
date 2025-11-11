@@ -7,10 +7,19 @@ FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 # Rails app lives here
 WORKDIR /rails
 
-# Instalar dependencias del sistema
+# # Instalar dependencias del sistema
+# RUN apt-get update -qq && \
+#     apt-get install --no-install-recommends -y \
+#     curl gnupg2 build-essential libjemalloc2 libvips postgresql-client git pkg-config && \
+#     rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Install base packages + Node + Yarn
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
-    curl gnupg2 build-essential libjemalloc2 libvips postgresql-client git pkg-config && \
+    curl gnupg2 build-essential git libjemalloc2 libvips postgresql-client pkg-config && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install --global yarn && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Instalar Node.js y Yarn (necesarios para assets)
@@ -34,6 +43,10 @@ FROM base AS build
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache
+
+# Install JS dependencies
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile || npm install
 
 # Copiar aplicación
 COPY . .
