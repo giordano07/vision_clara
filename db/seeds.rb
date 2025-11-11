@@ -8,9 +8,25 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-AdminUser.find_or_create_by!(email: 'admin@example.com') do |u|
-  u.password = 'Password123'
-  u.password_confirmation = 'Password123'
+# AdminUser.find_or_create_by!(email: 'admin@example.com') do |u|
+#   u.password = 'Password123'
+#   u.password_confirmation = 'Password123'
+# end
+
+# db/seeds.rb
+admin = AdminUser.find_or_initialize_by(email: 'admin@example.com')
+
+if admin.new_record?
+  admin.password = 'password'
+  admin.password_confirmation = 'password'
+  
+  if admin.save
+    puts "✅ Usuario admin creado exitosamente"
+  else
+    puts "❌ Error al crear admin: #{admin.errors.full_messages.join(', ')}"
+  end
+else
+  puts "ℹ️ Usuario admin ya existe"
 end
 
 products_seed = [
