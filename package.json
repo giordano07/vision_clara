@@ -2,8 +2,8 @@
   "name": "app",
   "private": "true",
   "scripts": {
-    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules && sass ./app/assets/stylesheets/active_admin.sass.scss:./app/assets/builds/active_admin.css --no-source-map --load-path=node_modules",
-    "watch:css": "sass --watch ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css ./app/assets/stylesheets/active_admin.sass.scss:./app/assets/builds/active_admin.css --load-path=node_modules"
+    "build:css": "sass --load-path=node_modules --load-path=$(bundle info --path activeadmin)/app/assets/stylesheets ./app/assets/stylesheets/application.sass.scss ./app/assets/builds/application.css --no-source-map && sass --load-path=node_modules --load-path=$(bundle info --path activeadmin)/app/assets/stylesheets ./app/assets/stylesheets/active_admin.sass.scss ./app/assets/builds/active_admin.css --no-source-map",
+    "watch:css": "sass --load-path=node_modules --load-path=$(bundle info --path activeadmin)/app/assets/stylesheets --watch ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css ./app/assets/stylesheets/active_admin.sass.scss:./app/assets/builds/active_admin.css"
   },
   "devDependencies": {
     "sass": "^1.77.0"
