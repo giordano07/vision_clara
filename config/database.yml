@@ -79,5 +79,12 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  url: <%= ENV["DATABASE_URL"] %>
+  primary:
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
+  
+  cache:
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
+    database: <%= ENV['DATABASE_URL'] %>/cache
+    migrations_paths: db/cache_migrate
