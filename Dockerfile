@@ -47,19 +47,14 @@ FROM base
 
 COPY --from=build ${BUNDLE_PATH} ${BUNDLE_PATH}
 COPY --from=build /rails /rails
+COPY docker-entrypoint.sh /usr/bin/
 
-RUN groupadd --system --gid 1000 rails && \
+RUN chmod +x /usr/bin/docker-entrypoint.sh && \
+    groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
     chown -R rails:rails db log storage tmp
 
 USER rails
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]
 EXPOSE 3000
 CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
-
-# Copiar el script de entrada
-COPY docker-entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/docker-entrypoint.sh
-
-# Usar el script como entrypoint
-ENTRYPOINT ["docker-entrypoint.sh"]
