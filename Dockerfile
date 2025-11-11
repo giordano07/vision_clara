@@ -56,3 +56,10 @@ USER rails
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 3000
 CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
+
+# Copiar el script de entrada
+COPY docker-entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/docker-entrypoint.sh
+
+# Usar el script como entrypoint
+ENTRYPOINT ["docker-entrypoint.sh"]
