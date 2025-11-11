@@ -21,7 +21,7 @@ RUN apt-get update -qq && \
     apt-get install -y nodejs && \
     npm install --global yarn && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
+ 
 # Instalar Node.js y Yarn (necesarios para assets)
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs && \
@@ -44,9 +44,12 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache
 
-# Install JS dependencies
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile || npm install
+# # Install JS dependencies
+# COPY package.json yarn.lock ./
+# RUN yarn install --frozen-lockfile || npm install
+
+# No JS dependencies to install
+RUN echo "Skipping JS install — no package.json found"
 
 # Copiar aplicación
 COPY . .
