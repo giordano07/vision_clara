@@ -16,6 +16,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "pages#home"
+
+  get '/create_admin', to: proc { 
+    AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+    [200, {}, ['Admin created']]
+  }
+
   
   # Rutas amigables para categorías y subcategorías
   get ':category', to: 'products#index', as: :category, constraints: { category: /ninos|damas|caballeros/ }
