@@ -7,9 +7,13 @@ class BudgetsController < ApplicationController
     @budget = Budget.new(budget_params)
 
     if @budget.save
-      # Enviar emails de notificación
-      BudgetMailer.notification_to_admin(@budget).deliver_later
-      BudgetMailer.confirmation_to_client(@budget).deliver_later
+      begin
+        # Enviar emails de notificación (no bloquear la UX si hay un error externo)
+        BudgetMailer.notification_to_admin(@budget).deliver_later
+        BudgetMailer.confirmation_to_client(@budget).deliver_later
+      rescue StandardError => e
+        Rails.logger.error("[BudgetsController#create] Error al enviar correos: #{e.class} - #{e.message}")
+      end
 
       redirect_to root_path, notice: "¡Gracias! Hemos recibido tu solicitud de presupuesto. Te contactaremos pronto."
     else
