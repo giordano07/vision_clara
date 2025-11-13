@@ -37,6 +37,20 @@
         display: flex;
         flex-direction: column;
       }
+      a,
+      a:hover,
+      a:focus,
+      a:active,
+      a:visited {
+        color: var(--brand-primary);
+        text-decoration: none !important;
+        transition: color 0.2s ease, text-decoration 0.2s ease;
+      }
+      a:hover,
+      a:focus,
+      a:active {
+        color: var(--brand-dark);
+      }
       main { flex: 1; }
       .site-header {
         /* Fallback color */
@@ -48,10 +62,10 @@
         background-position: center;
         background-repeat: no-repeat;
         color: var(--brand-dark);
-      }
+        }
       .site-header a { color: var(--brand-dark); text-decoration: none; }
-      .site-header a:hover { text-decoration: underline; }
-      
+      .site-header a:hover { color: var(--brand-primary); text-decoration: none; }
+
       /* Footer */
       .site-footer {
         background: var(--brand-dark);
@@ -93,6 +107,7 @@
       }
       .social-icon {
         font-size: 2.5rem;
+        color: var(--brand-primary);
       }
       @media (max-width: 768px) {
         .footer-content {
@@ -104,15 +119,77 @@
           gap: 2rem;
         }
       }
-      .site-header-inner { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 0; padding:60px;}
-      /* Acercar el título al logo */
-      .site-logo-wrap { flex: 0 0 22%; display: flex; align-items: center; }
-      .site-title { flex: 1 1 78%; font-weight: 800; font-size: 5.5rem; line-height: 1.05; margin: 0; text-align: center; transform: translateX(-22%); }
-      /* Mantener proporción visual con el título (doble tamaño) */
-      .site-logo { height: 320px; width: auto; display: block; }
-      @media (max-width: 640px) {
-        .site-title { font-size: 4.5rem; transform: translateX(-14%); }
-        .site-logo { height: 240px; }
+      .site-header-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        padding: 2rem 1rem;
+      }
+      .site-logo-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+      }
+      .site-title {
+        display: none;
+        margin: 0;
+      }
+      .site-logo {
+        height: 200px;
+        width: auto;
+        display: block;
+      }
+      @media (max-width: 767px) {
+        .site-header {
+          background: white;
+          background-image: url('<%= asset_path("encabezado_mobile.jpg") %>');
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+          min-height: 90px;
+          padding: 0;
+        }
+        .site-header-inner {
+          padding: 1rem 1rem 1.5rem;
+        }
+        .site-logo {
+          height: 140px;
+          display: none;
+        }
+      }
+      @media (min-width: 768px) {
+        .site-header-inner {
+          flex-direction: row;
+          padding: 60px;
+        }
+        .site-logo-wrap {
+          flex: 0 0 22%;
+          justify-content: flex-start;
+        }
+        .site-title {
+          display: block;
+          flex: 1 1 78%;
+          font-weight: 800;
+          font-size: 5.5rem;
+          line-height: 1.05;
+          text-align: center;
+          transform: translateX(-22%);
+          color: var(--brand-dark);
+        }
+        .site-title span:first-child { color: var(--brand-primary); }
+        .site-title span:last-child { color: var(--brand-dark); }
+        .site-logo {
+          height: 320px;
+        }
+      }
+
+      @media (min-width: 768px) and (max-width: 1023px) {
+        .site-title {
+          display: none;
+        }
       }
       
       /* Flash Messages */
@@ -175,6 +252,17 @@
           left: 10px;
           max-width: none;
         }
+      hr {
+        display: block;
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+        margin-left: auto;
+        margin-right: auto;
+        border-style: inset;
+        border-width: 1px;
+        width: 100%;
+        border-bottom: 2px solid var(--brand-primary);
+      }
       }
     </style>
     <%= javascript_importmap_tags %>
@@ -189,6 +277,7 @@
         <h1 class="site-title"><span>Óptica</span><span style="font-weight:400;"> COFICO</span></h1>
       </div>
     </header>
+    <hr>
     
     <!-- Flash Messages -->
     <% if notice %>

@@ -18,6 +18,13 @@
     box-shadow: 0 4px 8px rgba(43, 55, 96, 0.3);
   }
   
+  .subcategories-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 2rem;
+    width: 100%;
+  }
   .subcategory-card {
     position: relative;
     overflow: hidden;
@@ -28,15 +35,15 @@
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    flex: 1; /* Ocupa el espacio disponible */
+    flex: 1;
     min-height: 420px;
     background: white;
-    margin-right: 2rem; /* Espacio entre tarjetas */
+    margin-right: 2rem;
     vertical-align: top;
   }
   
   .subcategory-card:last-child {
-    margin-right: 0; /* Sin margen en la última tarjeta */
+    margin-right: 0;
   }
   .subcategory-card:hover {
     transform: translateY(-8px);
@@ -54,15 +61,16 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    background: linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0));
     padding: 2rem;
-    color: white;
+    color: #111827;
   }
   .subcategory-title {
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
     line-height: 1.2;
+    color: #111827;
   }
   
   .header-container {
@@ -83,6 +91,10 @@
   }
   
   @media (max-width: 768px) {
+    .subcategories-wrapper {
+      flex-direction: column !important;
+      gap: 1.5rem;
+    }
     .header-container {
       flex-direction: column;
       gap: 1.5rem;
@@ -95,15 +107,27 @@
     }
     
     .subcategory-card {
-      width: 250px; /* Slightly smaller on mobile */
-      min-height: 380px;
+      width: 100%;
+      min-height: 360px;
+      margin-right: 0;
+      margin-bottom: 1.5rem;
+    }
+    .subcategory-card:last-child {
+      margin-bottom: 0;
+    }
+    .subcategory-image {
+      height: 240px;
     }
   }
   
   @media (max-width: 480px) {
     .subcategory-card {
-      width: 220px; /* Even smaller on very small screens */
-      min-height: 350px;
+      width: 100%;
+      min-height: 320px;
+      margin-right: 0;
+    }
+    .subcategory-image {
+      height: 200px;
     }
     
     /* Ajustar productos para pantallas muy pequeñas */
@@ -136,6 +160,12 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .products-grid {
+      grid-template-columns: 1fr !important;
+    }
   }
   
   .product-card {
@@ -349,7 +379,7 @@
 
 <% if @category.present? && !@subcategory.present? %>
   <!-- Contenedor de las tarjetas de subcategorías -->
-  <div class="flex flex-row mb-8 w-full" style="display: flex; flex-direction: row; align-items: stretch;">
+  <div class="subcategories-wrapper flex flex-row mb-8 w-full">
     <% Product::SUBCATEGORIAS[@category]&.each do |subcategoria| %>
       <% productos_count = Product.where(activo: true, categoria: @category, subcategoria: subcategoria).count %>
       <%= link_to category_subcategory_path(@category, subcategoria.parameterize), class: "subcategory-card" do %>
