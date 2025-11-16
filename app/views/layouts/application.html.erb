@@ -62,6 +62,12 @@
         background-position: center;
         background-repeat: no-repeat;
         color: var(--brand-dark);
+        /* Header flotante */
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
       .site-header a { color: var(--brand-dark); text-decoration: none; }
       .site-header a:hover { color: var(--brand-primary); text-decoration: none; }
@@ -172,7 +178,8 @@
       @media (min-width: 768px) {
         .site-header-inner {
           flex-direction: row;
-          padding: 60px;
+          padding: 30px 30px 13px 30px; /* Reducir 20% más el padding inferior: 16px * 0.8 = 13px */
+          align-items: center; /* Centrar verticalmente el contenido */
         }
         .site-logo-wrap {
           flex: 0 0 22%;
@@ -182,7 +189,7 @@
           display: block;
           flex: 1 1 78%;
           font-weight: 800;
-          font-size: 5.5rem;
+          font-size: 5.5rem; /* Mantener tamaño original */
           line-height: 1.05;
           text-align: center;
           transform: translateX(-22%);
@@ -191,7 +198,7 @@
         .site-title span:first-child { color: var(--brand-primary); }
         .site-title span:last-child { color: var(--brand-dark); }
         .site-logo {
-          height: 320px;
+          height: 320px; /* Mantener tamaño original */
         }
       }
 
